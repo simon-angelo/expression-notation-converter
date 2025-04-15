@@ -24,6 +24,8 @@ int isRightAssociative(char op);
 
 Notation detectNotation(const char *expr);
 TreeNode* buildInfixTree(char *infix);
+TreeNode* buildPrefixHelper(char **tokens, int *index, int tokenCount);
+TreeNode* buildTreeFromPrefix(char *expr);
 
 int main(int argc, char *argv[]) {   
     char *currentNotationString = argv[1];
@@ -191,3 +193,29 @@ TreeNode* buildInfixTree(char *infix) {
 
     return stack[top];
 }
+TreeNode* buildPrefixHelper(char **tokens, int *index, int tokenCount) {
+    if (*index >= tokenCount) return NULL;
+
+    TreeNode *node = createTreeNode(tokens[(*index)++]);
+
+    if (isOperator(node->value[0]) && strlen(node->value) == 1) {
+        node->left = buildPrefixHelper(tokens, index, tokenCount);
+        node->right = buildPrefixHelper(tokens, index, tokenCount);
+    }
+
+    return node;
+}
+TreeNode* buildTreeFromPrefix(char *expr) {
+    char *tokens[100];
+    int tokenCount = 0;
+
+    char *token = strtok(expr, " ");
+    while (token != NULL) {
+        tokens[tokenCount++] = token;
+        token = strtok(NULL, " ");
+    }
+
+    int index = 0;
+    return buildPrefixHelper(tokens, &index, tokenCount);
+}
+

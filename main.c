@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 
+#define MAX_TREE_NODE_VALUE_LENGTH 10
+
 typedef enum {
     INFIX,
     PREFIX,
@@ -8,7 +10,7 @@ typedef enum {
 } Notation;
 
 typedef struct TreeNode {
-    char value[10];
+    char value[MAX_TREE_NODE_VALUE_LENGTH];
     struct TreeNode *left;
     struct TreeNode *right;
 } TreeNode;

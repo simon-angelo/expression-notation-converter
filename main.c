@@ -17,13 +17,14 @@ typedef struct TreeNode {
     struct TreeNode *right;
 } TreeNode;
 
+Notation detectNotation(const char *expr);
 TreeNode* createTreeNode(char *value);
-void printTreeInOrder(TreeNode *root);
 int isOperator(char ch);
 int getPrecedence(char op);
 int isRightAssociative(char op);
 
-Notation detectNotation(const char *expr);
+void printTreeInOrder(TreeNode *root);
+
 TreeNode* buildTreeFromInfix(char *expr);
 TreeNode* buildPrefixHelper(char **tokens, int *index, int tokenCount);
 TreeNode* buildTreeFromPrefix(char *expr);
@@ -64,59 +65,9 @@ int main(int argc, char *argv[]) {
             break;
     }
 
+
+
     return 0;
-}
-
-TreeNode* createTreeNode(char *value) {
-    if (strlen(value) >= MAX_TREE_NODE_VALUE_LENGTH) {
-        fprintf(stderr, "Error: value too long for TreeNode (max 9 characters).\n");
-        exit(-1);
-    }
-
-    TreeNode *newNode = (TreeNode *)malloc(sizeof(TreeNode));
-    if (newNode == NULL) {
-        fprintf(stderr, "Error: failed to allocate TreeNode!\n");
-        exit(-2);
-    }
-
-    strcpy(newNode->value, value);
-    newNode->left = NULL;
-    newNode->right = NULL;
-    return newNode;
-}
-void printTreeInOrder(TreeNode *root) {
-    if (root == NULL) return;
-    
-    if (isOperator(root->value[0]) && strlen(root->value) == 1) {
-        printf("(");
-    }
-
-    printTreeInOrder(root->left);
-    printf("%s", root->value);
-    printTreeInOrder(root->right);
-
-    if (isOperator(root->value[0]) && strlen(root->value) == 1) {
-        printf(")");
-    }
-}
-int isOperator(char ch) {
-    return ch == '+' || ch == '-' || ch == '*' || ch == '/' || ch == '^';
-}
-int getPrecedence(char op) {
-    switch (op) {
-        case '+':
-        case '-': 
-            return 1;
-        case '*':
-        case '/': 
-            return 2;
-        case '^': 
-            return 3;
-    }
-    return 0;
-}
-int isRightAssociative(char op) {
-    return op == '^';
 }
 
 Notation detectNotation(const char *expr) {
@@ -140,6 +91,58 @@ Notation detectNotation(const char *expr) {
         return POSTFIX;
     } else {
         return INFIX;
+    }
+}
+TreeNode* createTreeNode(char *value) {
+    if (strlen(value) >= MAX_TREE_NODE_VALUE_LENGTH) {
+        fprintf(stderr, "Error: value too long for TreeNode (max 9 characters).\n");
+        exit(-1);
+    }
+
+    TreeNode *newNode = (TreeNode *)malloc(sizeof(TreeNode));
+    if (newNode == NULL) {
+        fprintf(stderr, "Error: failed to allocate TreeNode!\n");
+        exit(-2);
+    }
+
+    strcpy(newNode->value, value);
+    newNode->left = NULL;
+    newNode->right = NULL;
+    return newNode;
+}
+int isOperator(char ch) {
+    return ch == '+' || ch == '-' || ch == '*' || ch == '/' || ch == '^';
+}
+int getPrecedence(char op) {
+    switch (op) {
+        case '+':
+        case '-': 
+            return 1;
+        case '*':
+        case '/': 
+            return 2;
+        case '^': 
+            return 3;
+    }
+    return 0;
+}
+int isRightAssociative(char op) {
+    return op == '^';
+}
+
+void printTreeInOrder(TreeNode *root) {
+    if (root == NULL) return;
+    
+    if (isOperator(root->value[0]) && strlen(root->value) == 1) {
+        printf("(");
+    }
+
+    printTreeInOrder(root->left);
+    printf("%s", root->value);
+    printTreeInOrder(root->right);
+
+    if (isOperator(root->value[0]) && strlen(root->value) == 1) {
+        printf(")");
     }
 }
 

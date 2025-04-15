@@ -30,12 +30,8 @@ TreeNode* buildTreeFromPrefix(char *expr);
 TreeNode* buildTreeFromPostfix(char *expr);
 
 int main(int argc, char *argv[]) {   
-    char *currentNotationString = argv[1];
+    char *expression = argv[1];
     char *notationFlag = argv[2];
-
-    for (int i = 0; i < argc; i++) {
-        printf("Argument %d: %s\n", i, argv[i]);
-    }
 
     Notation targetNotation;
     if (strcmp(notationFlag, "--infix") == 0) {
@@ -53,9 +49,20 @@ int main(int argc, char *argv[]) {
         printf("\n\n");
     }
     
-    Notation currentNotation = detectNotation(currentNotationString);
+    Notation currentNotation = detectNotation(expression);
 
-    printf("\nCurrent: %d\nConvert to: %d\n\n", currentNotation, targetNotation);
+    TreeNode *root = NULL;
+    switch (currentNotation) {
+        case INFIX:
+            root = buildTreeFromInfix(expression);
+            break;
+        case PREFIX:
+            root = buildTreeFromPrefix(expression);
+            break;
+        case POSTFIX:
+            root = buildTreeFromPostfix(expression);
+            break;
+    }
 
     return 0;
 }

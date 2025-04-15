@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 #define MAX_TREE_NODE_VALUE_LENGTH 10
@@ -15,7 +16,9 @@ typedef struct TreeNode {
     struct TreeNode *right;
 } TreeNode;
 
+TreeNode* createTreeNode(char *value);
 int isOperator(char ch);
+
 Notation detectNotation(const char *expr);
 
 int main(int argc, char *argv[]) {   
@@ -49,6 +52,23 @@ int main(int argc, char *argv[]) {
     return 0;
 }
 
+TreeNode* createTreeNode(char *value) {
+    if (strlen(value) >= MAX_TREE_NODE_VALUE_LENGTH) {
+        fprintf(stderr, "Error: value too long for TreeNode (max 9 characters).\n");
+        exit(-1);
+    }
+
+    TreeNode *newNode = (TreeNode *)malloc(sizeof(TreeNode));
+    if (newNode == NULL) {
+        fprintf(stderr, "Error: failed to allocate TreeNode!\n");
+        exit(-2);
+    }
+
+    strcpy(newNode->value, value);
+    newNode->left = NULL;
+    newNode->right = NULL;
+    return newNode;
+}
 int isOperator(char ch) {
     return ch == '+' || ch == '-' || ch == '*' || ch == '/' || ch == '^';
 }

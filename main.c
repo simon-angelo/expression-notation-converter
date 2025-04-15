@@ -22,6 +22,7 @@ TreeNode* createTreeNode(char *value);
 int isOperator(char ch);
 int getPrecedence(char op);
 int isRightAssociative(char op);
+char *notation(Notation not);
 
 void printTreeInOrder(TreeNode *root);
 void printTreePreOrder(TreeNode *root);
@@ -72,6 +73,11 @@ int main(int argc, char *argv[]) {
             break;
     }
 
+    printf("\n   Original Notation: %s", notation(currentNotation));
+    printf("\n Original Expression: %s", expr);
+    printf("\n     Target Notation: %s", notation(targetNotation));
+    printf("\nConverted Expression: ");
+
     switch (targetNotation) {
         case INFIX:
             printTreeInOrder(root);
@@ -84,6 +90,7 @@ int main(int argc, char *argv[]) {
             break;
     }
 
+    printf("\n\n");
     return 0;
 }
 
@@ -145,6 +152,16 @@ int getPrecedence(char op) {
 }
 int isRightAssociative(char op) {
     return op == '^';
+}
+char *notation(Notation not) {
+    switch (not) {
+        case INFIX:
+            return "Infix";
+        case PREFIX:
+            return "Prefix";
+        case POSTFIX:
+            return "Postfix";
+    }
 }
 
 void printTreeInOrder(TreeNode *root) {

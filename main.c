@@ -27,7 +27,7 @@ Notation detectNotation(const char *expr);
 TreeNode* buildInfixTree(char *infix);
 TreeNode* buildPrefixHelper(char **tokens, int *index, int tokenCount);
 TreeNode* buildTreeFromPrefix(char *expr);
-
+TreeNode* buildTreeFromPostfix(char *expr);
 
 int main(int argc, char *argv[]) {   
     char *currentNotationString = argv[1];
@@ -235,4 +235,22 @@ TreeNode* buildTreeFromPrefix(char *expr) {
     int index = 0;
     return buildPrefixHelper(tokens, &index, tokenCount);
 }
+TreeNode* buildTreeFromPostfix(char *expr) {
+    TreeNode *stack[100];
+    int top = -1;
 
+    char *token = strtok(expr, " ");
+    while (token != NULL) {
+        if (isOperator(token[0]) && strlen(token) == 1) {
+            TreeNode *node = createTreeNode(token);
+            node->right = stack[top--];
+            node->left = stack[top--];
+            stack[++top] = node;
+        } else {
+            stack[++top] = createTreeNode(token);
+        }
+        token = strtok(NULL, " ");
+    }
+
+    return stack[top];
+}

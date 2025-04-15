@@ -34,12 +34,10 @@ TreeNode* buildTreeFromPrefix(char *expr);
 TreeNode* buildTreeFromPostfix(char *expr);
 
 int main(int argc, char *argv[]) {   
-    char *expr = "* + 10 X - Y Z";
-    char expression[256];
-    strcpy(expression, expr);
-    char *notationFlag = "--infix";
-    // char *expression = argv[1];
-    // char *notationFlag = argv[2];
+    char *expression = argv[1];
+    char *notationFlag = argv[2];
+    char expressionCopy[256];
+    strcpy(expressionCopy, expression);
 
     Notation targetNotation;
     if (strcmp(notationFlag, "--infix") == 0) {
@@ -74,7 +72,8 @@ int main(int argc, char *argv[]) {
     }
 
     printf("\n   Original Notation: %s", notation(currentNotation));
-    printf("\n Original Expression: %s", expr);
+    printf("\n Original Expression: %s", expressionCopy);
+    printf("\n---------------------");
     printf("\n     Target Notation: %s", notation(targetNotation));
     printf("\nConverted Expression: ");
 

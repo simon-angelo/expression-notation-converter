@@ -18,6 +18,7 @@ typedef struct TreeNode {
 } TreeNode;
 
 TreeNode* createTreeNode(char *value);
+void printTreeInOrder(TreeNode *root);
 int isOperator(char ch);
 int getPrecedence(char op);
 int isRightAssociative(char op);
@@ -26,6 +27,7 @@ Notation detectNotation(const char *expr);
 TreeNode* buildInfixTree(char *infix);
 TreeNode* buildPrefixHelper(char **tokens, int *index, int tokenCount);
 TreeNode* buildTreeFromPrefix(char *expr);
+
 
 int main(int argc, char *argv[]) {   
     char *currentNotationString = argv[1];
@@ -74,6 +76,21 @@ TreeNode* createTreeNode(char *value) {
     newNode->left = NULL;
     newNode->right = NULL;
     return newNode;
+}
+void printTreeInOrder(TreeNode *root) {
+    if (root == NULL) return;
+    
+    if (isOperator(root->value[0]) && strlen(root->value) == 1) {
+        printf("(");
+    }
+
+    printTreeInOrder(root->left);
+    printf("%s", root->value);
+    printTreeInOrder(root->right);
+
+    if (isOperator(root->value[0]) && strlen(root->value) == 1) {
+        printf(")");
+    }
 }
 int isOperator(char ch) {
     return ch == '+' || ch == '-' || ch == '*' || ch == '/' || ch == '^';

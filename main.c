@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 
 #define MAX_TREE_NODE_VALUE_LENGTH 10
 
@@ -18,8 +19,11 @@ typedef struct TreeNode {
 
 TreeNode* createTreeNode(char *value);
 int isOperator(char ch);
+int getPrecedence(char op);
+int isRightAssociative(char op);
 
 Notation detectNotation(const char *expr);
+TreeNode* buildInfixTree(char *infix);
 
 int main(int argc, char *argv[]) {   
     char *currentNotationString = argv[1];
@@ -72,6 +76,22 @@ TreeNode* createTreeNode(char *value) {
 int isOperator(char ch) {
     return ch == '+' || ch == '-' || ch == '*' || ch == '/' || ch == '^';
 }
+int getPrecedence(char op) {
+    switch (op) {
+        case '+':
+        case '-': 
+            return 1;
+        case '*':
+        case '/': 
+            return 2;
+        case '^': 
+            return 3;
+    }
+    return 0;
+}
+int isRightAssociative(char op) {
+    return op == '^';
+}
 
 Notation detectNotation(const char *expr) {
     char first, last;
@@ -95,4 +115,79 @@ Notation detectNotation(const char *expr) {
     } else {
         return INFIX;
     }
+}
+
+TreeNode* buildInfixTree(char *infix) {
+    char operatorStack[100];
+    int opTop = -1;
+
+    char postfix[100][10];
+    int postIndex = 0;
+
+    int i = 0;
+    while (infix[i] != '\0') {
+        if (isspace(infix[i])) {
+            i++;
+            continue;
+        }
+
+        if (isalnum(infix[i])) {
+            char buffer[10];
+            int j = 0;
+            while (isalnum(infix[i])) {
+                buffer[j++] = infix[i++];
+            }
+            buffer[j] = '\0';
+            strcpy(postfix[postIndex++], buffer);
+        } else if (infix[i] == '(') {
+            operatorStack[++opTop] = infix[i++];
+        } else if (infix[i] == ')') {
+            while (opTop >= 0 && operatorStack[opTop] != '(') {
+                char op[2] = {operatorStack[opTop--], '\0'};
+                strcpy(postfix[postIndex++], op);
+            }
+            if (opTop >= 0 && operatorStack[opTop] == '(') opTop--;
+            i++;
+        } else if (isOperator(infix[i])) {
+            while (
+                    opTop >= 0 && 
+                    isOperator(operatorStack[opTop]) &&
+                    (
+                        getPrecedence(operatorStack[opTop]) > getPrecedence(infix[i]) ||
+                        (
+                            getPrecedence(operatorStack[opTop]) == getPrecedence(infix[i]) &&
+                            !isRightAssociative(infix[i])
+                        )
+                    )
+                ) {
+                char op[2] = {operatorStack[opTop--], '\0'};
+                strcpy(postfix[postIndex++], op);
+            }
+            operatorStack[++opTop] = infix[i++];
+        } else {
+            printf("Invalid character: %c\n", infix[i]);
+            exit(1);
+        }
+    }
+
+    while (opTop >= 0) {
+        char op[2] = {operatorStack[opTop--], '\0'};
+        strcpy(postfix[postIndex++], op);
+    }
+
+    TreeNode* stack[100];
+    int top = -1;
+
+    for (int i = 0; i < postIndex; i++) {
+        if (isOperator(postfix[i][0]) && strlen(postfix[i]) == 1) {
+            TreeNode *node = createTreeNode(postfix[i]);
+            node->right = stack[top--];
+            node->left = stack[top--];
+            stack[++top] = node;
+        } else {
+            stack[++top] = createTreeNode(postfix[i]);
+        }
+    }
+
+    return stack[top];
 }

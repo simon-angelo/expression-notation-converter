@@ -24,7 +24,7 @@ int getPrecedence(char op);
 int isRightAssociative(char op);
 
 Notation detectNotation(const char *expr);
-TreeNode* buildInfixTree(char *infix);
+TreeNode* buildInfixTree(char *expr);
 TreeNode* buildPrefixHelper(char **tokens, int *index, int tokenCount);
 TreeNode* buildTreeFromPrefix(char *expr);
 TreeNode* buildTreeFromPostfix(char *expr);
@@ -136,7 +136,7 @@ Notation detectNotation(const char *expr) {
     }
 }
 
-TreeNode* buildInfixTree(char *infix) {
+TreeNode* buildInfixTree(char *expr) {
     char operatorStack[100];
     int opTop = -1;
 
@@ -144,47 +144,47 @@ TreeNode* buildInfixTree(char *infix) {
     int postIndex = 0;
 
     int i = 0;
-    while (infix[i] != '\0') {
-        if (isspace(infix[i])) {
+    while (expr[i] != '\0') {
+        if (isspace(expr[i])) {
             i++;
             continue;
         }
 
-        if (isalnum(infix[i])) {
+        if (isalnum(expr[i])) {
             char buffer[10];
             int j = 0;
-            while (isalnum(infix[i])) {
-                buffer[j++] = infix[i++];
+            while (isalnum(expr[i])) {
+                buffer[j++] = expr[i++];
             }
             buffer[j] = '\0';
             strcpy(postfix[postIndex++], buffer);
-        } else if (infix[i] == '(') {
-            operatorStack[++opTop] = infix[i++];
-        } else if (infix[i] == ')') {
+        } else if (expr[i] == '(') {
+            operatorStack[++opTop] = expr[i++];
+        } else if (expr[i] == ')') {
             while (opTop >= 0 && operatorStack[opTop] != '(') {
                 char op[2] = {operatorStack[opTop--], '\0'};
                 strcpy(postfix[postIndex++], op);
             }
             if (opTop >= 0 && operatorStack[opTop] == '(') opTop--;
             i++;
-        } else if (isOperator(infix[i])) {
+        } else if (isOperator(expr[i])) {
             while (
                     opTop >= 0 && 
                     isOperator(operatorStack[opTop]) &&
                     (
-                        getPrecedence(operatorStack[opTop]) > getPrecedence(infix[i]) ||
+                        getPrecedence(operatorStack[opTop]) > getPrecedence(expr[i]) ||
                         (
-                            getPrecedence(operatorStack[opTop]) == getPrecedence(infix[i]) &&
-                            !isRightAssociative(infix[i])
+                            getPrecedence(operatorStack[opTop]) == getPrecedence(expr[i]) &&
+                            !isRightAssociative(expr[i])
                         )
                     )
                 ) {
                 char op[2] = {operatorStack[opTop--], '\0'};
                 strcpy(postfix[postIndex++], op);
             }
-            operatorStack[++opTop] = infix[i++];
+            operatorStack[++opTop] = expr[i++];
         } else {
-            printf("Invalid character: %c\n", infix[i]);
+            printf("Invalid character: %c\n", expr[i]);
             exit(1);
         }
     }

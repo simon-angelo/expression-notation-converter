@@ -7,6 +7,12 @@ typedef enum {
     POSTFIX
 } Notation;
 
+typedef struct TreeNode {
+    char value[10];
+    struct TreeNode *left;
+    struct TreeNode *right;
+} TreeNode;
+
 int isOperator(char ch);
 Notation detectNotation(const char *expr);
 

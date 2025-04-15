@@ -24,7 +24,7 @@ int getPrecedence(char op);
 int isRightAssociative(char op);
 
 Notation detectNotation(const char *expr);
-TreeNode* buildInfixTree(char *expr);
+TreeNode* buildTreeFromInfix(char *expr);
 TreeNode* buildPrefixHelper(char **tokens, int *index, int tokenCount);
 TreeNode* buildTreeFromPrefix(char *expr);
 TreeNode* buildTreeFromPostfix(char *expr);
@@ -136,7 +136,7 @@ Notation detectNotation(const char *expr) {
     }
 }
 
-TreeNode* buildInfixTree(char *expr) {
+TreeNode* buildTreeFromInfix(char *expr) {
     char operatorStack[100];
     int opTop = -1;
 

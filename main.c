@@ -36,7 +36,7 @@ int main(int argc, char *argv[]) {
     char *expr = "* + 10 X - Y Z";
     char expression[256];
     strcpy(expression, expr);
-    char *notationFlag = "--postfix";
+    char *notationFlag = "--infix";
     // char *expression = argv[1];
     // char *notationFlag = argv[2];
 
@@ -151,15 +151,15 @@ void printTreeInOrder(TreeNode *root) {
     if (root == NULL) return;
     
     if (isOperator(root->value[0]) && strlen(root->value) == 1) {
-        printf("(");
+        printf("( ");
     }
 
     printTreeInOrder(root->left);
-    printf("%s", root->value);
+    printf(" %s ", root->value);
     printTreeInOrder(root->right);
 
     if (isOperator(root->value[0]) && strlen(root->value) == 1) {
-        printf(")");
+        printf(" )");
     }
 }
 void printTreePreOrder(TreeNode *root) {

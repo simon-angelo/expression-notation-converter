@@ -25,6 +25,7 @@ int isRightAssociative(char op);
 
 void printTreeInOrder(TreeNode *root);
 void printTreePreOrder(TreeNode *root);
+void printTreePostOrder(TreeNode *root);
 
 TreeNode* buildTreeFromInfix(char *expr);
 TreeNode* buildPrefixHelper(char **tokens, int *index, int tokenCount);
@@ -151,6 +152,12 @@ void printTreePreOrder(TreeNode *root) {
     printf("%s ", root->value);
     printTreePreOrder(root->left);
     printTreePreOrder(root->right);
+}
+void printTreePostOrder(TreeNode *root) {
+    if (root == NULL) return;
+    printTreePostOrder(root->left);
+    printTreePostOrder(root->right);
+    printf("%s ", root->value);
 }
 
 TreeNode* buildTreeFromInfix(char *expr) {

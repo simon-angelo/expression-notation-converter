@@ -24,6 +24,7 @@ int getPrecedence(char op);
 int isRightAssociative(char op);
 
 void printTreeInOrder(TreeNode *root);
+void printTreePreOrder(TreeNode *root);
 
 TreeNode* buildTreeFromInfix(char *expr);
 TreeNode* buildPrefixHelper(char **tokens, int *index, int tokenCount);
@@ -144,6 +145,12 @@ void printTreeInOrder(TreeNode *root) {
     if (isOperator(root->value[0]) && strlen(root->value) == 1) {
         printf(")");
     }
+}
+void printTreePreOrder(TreeNode *root) {
+    if (root == NULL) return;
+    printf("%s ", root->value);
+    printTreePreOrder(root->left);
+    printTreePreOrder(root->right);
 }
 
 TreeNode* buildTreeFromInfix(char *expr) {

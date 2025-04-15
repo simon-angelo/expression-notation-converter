@@ -33,8 +33,12 @@ TreeNode* buildTreeFromPrefix(char *expr);
 TreeNode* buildTreeFromPostfix(char *expr);
 
 int main(int argc, char *argv[]) {   
-    char *expression = argv[1];
-    char *notationFlag = argv[2];
+    char *expr = "* + 10 X - Y Z";
+    char expression[256];
+    strcpy(expression, expr);
+    char *notationFlag = "--postfix";
+    // char *expression = argv[1];
+    // char *notationFlag = argv[2];
 
     Notation targetNotation;
     if (strcmp(notationFlag, "--infix") == 0) {
@@ -54,6 +58,7 @@ int main(int argc, char *argv[]) {
     
     Notation currentNotation = detectNotation(expression);
 
+    
     TreeNode *root = NULL;
     switch (currentNotation) {
         case INFIX:
@@ -67,7 +72,17 @@ int main(int argc, char *argv[]) {
             break;
     }
 
-
+    switch (targetNotation) {
+        case INFIX:
+            printTreeInOrder(root);
+            break;
+        case PREFIX:
+            printTreePreOrder(root);
+            break;
+        case POSTFIX:
+            printTreePostOrder(root);
+            break;
+    }
 
     return 0;
 }

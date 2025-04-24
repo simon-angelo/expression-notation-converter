@@ -41,6 +41,13 @@ int main(int argc, char *argv[]) {
     
     char *expression = argv[1];
     char *notationFlag = argv[2];
+    
+    char *expressionCopy = malloc(strlen(expression) + 1);
+    if (expressionCopy == NULL) {
+        fprintf(stderr, "Memory allocation failed\n");
+        exit(1);
+    }
+    strcpy(expressionCopy, expression);
 
     Notation originalNotation;
     if (strcmp(notationFlag, "--infix") == 0) {
@@ -60,13 +67,13 @@ int main(int argc, char *argv[]) {
     TreeNode *root = NULL;
     switch (originalNotation) {
         case INFIX:
-            root = buildTreeFromInfix(expression);
+            root = buildTreeFromInfix(expressionCopy);
             break;
         case PREFIX:
-            root = buildTreeFromPrefix(expression);
+            root = buildTreeFromPrefix(expressionCopy);
             break;
         case POSTFIX:
-            root = buildTreeFromPostfix(expression);
+            root = buildTreeFromPostfix(expressionCopy);
             break;
     }
 
@@ -89,17 +96,15 @@ int main(int argc, char *argv[]) {
     switch (originalNotation) {
         case INFIX:
             printf("\n\t%-7s : ", "Infix");
-            printf("%s", expression);
             break;
         case PREFIX:
             printf("\n\t%-7s : ", "Prefix");
-            printTreePreOrder(root);
             break;
         case POSTFIX:
             printf("\n\t%-7s : ", "Postfix");
-            printTreePostOrder(root);
             break;
     }
+    printf("%s", expression);
 
     printf("\n\n [ CONVERTED EXPRESSIONS ]");
     switch (originalNotation) {
@@ -125,6 +130,8 @@ int main(int argc, char *argv[]) {
 
     printf("\n\n===================================================================");
     printf("\n\n");
+
+    free(expressionCopy);
 
     return 0;
 }

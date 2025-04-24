@@ -55,27 +55,23 @@ int main(int argc, char *argv[]) {
     char expressionCopy[256];
     strcpy(expressionCopy, expression);
 
-    Notation targetNotation;
+    Notation originalNotation;
     if (strcmp(notationFlag, "--infix") == 0) {
-        targetNotation = INFIX;
+        originalNotation = INFIX;
     } else if (strcmp(notationFlag, "--prefix") == 0) {
-        targetNotation = PREFIX;
+        originalNotation = PREFIX;
     } else if (strcmp(notationFlag, "--postfix") == 0) {
-        targetNotation = POSTFIX;
+        originalNotation = POSTFIX;
     } else {
-        printf("\nSpecified target notation is invalid!");
         printf("\nPlease choose from:");
         printf("\n   --infix");
         printf("\n   --prefix");
         printf("\n   --postfix");
         printf("\n\n");
-    }
-    
-    Notation currentNotation = detectNotation(expression);
-
+    }   
     
     TreeNode *root = NULL;
-    switch (currentNotation) {
+    switch (originalNotation) {
         case INFIX:
             root = buildTreeFromInfix(expression);
             break;
@@ -87,23 +83,13 @@ int main(int argc, char *argv[]) {
             break;
     }
 
-    printf("\n   Original Notation: %s", notation(currentNotation));
-    printf("\n Original Expression: %s", expressionCopy);
-    printf("\n---------------------");
-    printf("\n     Target Notation: %s", notation(targetNotation));
-    printf("\nConverted Expression: ");
-
-    switch (targetNotation) {
-        case INFIX:
-            printTreeInOrder(root);
-            break;
-        case PREFIX:
-            printTreePreOrder(root);
-            break;
-        case POSTFIX:
-            printTreePostOrder(root);
-            break;
-    }
+    printf("\nInfix: ");
+    printTreeInOrder(root);
+    printf("\nPrefix: ");
+    printTreePreOrder(root);
+    printf("\nPostfix: ");
+    printTreePostOrder(root);
+    printf("\n");
 
     printf("\n\n");
     return 0;

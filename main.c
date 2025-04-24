@@ -33,7 +33,12 @@ TreeNode* buildPrefixHelper(char **tokens, int *index, int tokenCount);
 TreeNode* buildTreeFromPrefix(char *expr);
 TreeNode* buildTreeFromPostfix(char *expr);
 
-int main(int argc, char *argv[]) {   
+int main(int argc, char *argv[]) { 
+    if (argc == 1) {
+        printf("No arguements passed!\n");
+        return 0;
+    }
+    
     char *expression = argv[1];
     char *notationFlag = argv[2];
     char expressionCopy[256];

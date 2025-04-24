@@ -17,11 +17,6 @@ typedef struct TreeNode {
     struct TreeNode *right;
 } TreeNode;
 
-typedef struct {
-    char *expression;
-    Notation notation;
-} Expression;
-
 Notation detectNotation(const char *expr);
 TreeNode* createTreeNode(char *value);
 int isOperator(char ch);
@@ -37,12 +32,6 @@ TreeNode* buildTreeFromInfix(char *expr);
 TreeNode* buildPrefixHelper(char **tokens, int *index, int tokenCount);
 TreeNode* buildTreeFromPrefix(char *expr);
 TreeNode* buildTreeFromPostfix(char *expr);
-
-Expression expressions[] = {
-    {NULL, INFIX},
-    {NULL, PREFIX},
-    {NULL, POSTFIX},
-};
 
 int main(int argc, char *argv[]) { 
     if (argc == 1) {

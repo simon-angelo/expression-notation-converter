@@ -70,11 +70,22 @@ int main(int argc, char *argv[]) {
             break;
     }
 
-    printf("\n----------------------------------------------");
-    printf("\n\n Expression Notation Converter\n\n");
-    printf("----------------------------------------------\n");
+    printf("\n===================================================================\n");
 
-    printf("\n[ ORIGINAL EXPRESSION ]");
+    printf("\n EXPRESSION NOTATION CONVERTER");
+    printf("\n Discrete Structures 2");
+    printf("\n BSCS 2A");
+
+    printf("\n\n [ TEAM MEMBERS ]");
+    printf("\n\tMichael Xavier E. Canonizado");
+    printf("\n\tSimon Narvaez");
+    printf("\n\tBryan Surname");
+
+    printf("\n\n===================================================================\n");
+
+    printf("\n CONVERSION RESULTS\n");
+
+    printf("\n [ ORIGINAL EXPRESSION ]");
     switch (originalNotation) {
         case INFIX:
             printf("\n\tInfix: ");
@@ -90,7 +101,7 @@ int main(int argc, char *argv[]) {
             break;
     }
 
-    printf("\n\n[ CONVERTED EXPRESSIONS ]");
+    printf("\n\n [ CONVERTED EXPRESSIONS ]");
     switch (originalNotation) {
         case INFIX:
             printf("\n\tPrefix: ");
@@ -112,7 +123,9 @@ int main(int argc, char *argv[]) {
             break;
     }
 
+    printf("\n\n===================================================================");
     printf("\n\n");
+
     return 0;
 }
 

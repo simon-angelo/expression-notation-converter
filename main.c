@@ -76,13 +76,43 @@ int main(int argc, char *argv[]) {
     printf("\n\n Expression Notation Converter\n\n");
     printf("----------------------------------------------\n");
 
-    printf("\nInfix: ");
-    printTreeInOrder(root);
-    printf("\nPrefix: ");
-    printTreePreOrder(root);
-    printf("\nPostfix: ");
-    printTreePostOrder(root);
-    printf("\n");
+    printf("\n[ ORIGINAL EXPRESSION ]");
+    switch (originalNotation) {
+        case INFIX:
+            printf("\n\tInfix: ");
+            printTreeInOrder(root);
+            break;
+        case PREFIX:
+            printf("\n\tPrefix: ");
+            printTreePreOrder(root);
+            break;
+        case POSTFIX:
+            printf("\n\tPostfix: ");
+            printTreePostOrder(root);
+            break;
+    }
+
+    printf("\n\n[ CONVERTED EXPRESSIONS ]");
+    switch (originalNotation) {
+        case INFIX:
+            printf("\n\tPrefix: ");
+            printTreePreOrder(root);
+            printf("\n\tPostfix: ");
+            printTreePostOrder(root);
+            break;
+        case PREFIX:
+            printf("\n\tInfix: ");
+            printTreeInOrder(root);
+            printf("\n\tPostfix: ");
+            printTreePostOrder(root);
+            break;
+        case POSTFIX:
+            printf("\n\tPrefix: ");
+            printTreePreOrder(root);
+            printf("\n\tInfix: ");
+            printTreeInOrder(root);
+            break;
+    }
 
     printf("\n\n");
     return 0;

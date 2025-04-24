@@ -41,8 +41,6 @@ int main(int argc, char *argv[]) {
     
     char *expression = argv[1];
     char *notationFlag = argv[2];
-    char expressionCopy[256];
-    strcpy(expressionCopy, expression);
 
     Notation originalNotation;
     if (strcmp(notationFlag, "--infix") == 0) {
@@ -80,7 +78,7 @@ int main(int argc, char *argv[]) {
     switch (originalNotation) {
         case INFIX:
             printf("\n\tInfix: ");
-            printTreeInOrder(root);
+            printf("%s", expression);
             break;
         case PREFIX:
             printf("\n\tPrefix: ");

@@ -167,18 +167,24 @@ char *notation(Notation not) {
 
 void printTreeInOrder(TreeNode *root) {
     if (root == NULL) return;
-    
-    if (isOperator(root->value[0]) && strlen(root->value) == 1) {
-        printf("( ");
+
+    int needsParens = isOperator(root->value[0]) && strlen(root->value) == 1;
+
+    if (needsParens) printf("(");
+
+    if (root->left) {
+        printTreeInOrder(root->left);
+        printf(" ");
     }
 
-    printTreeInOrder(root->left);
-    printf(" %s ", root->value);
-    printTreeInOrder(root->right);
+    printf("%s", root->value);
 
-    if (isOperator(root->value[0]) && strlen(root->value) == 1) {
-        printf(" )");
+    if (root->right) {
+        printf(" ");
+        printTreeInOrder(root->right);
     }
+
+    if (needsParens) printf(")");
 }
 void printTreePreOrder(TreeNode *root) {
     if (root == NULL) return;

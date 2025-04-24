@@ -72,6 +72,10 @@ int main(int argc, char *argv[]) {
             break;
     }
 
+    printf("\n----------------------------------------------");
+    printf("\n\n Expression Notation Converter\n\n");
+    printf("----------------------------------------------\n");
+
     printf("\nInfix: ");
     printTreeInOrder(root);
     printf("\nPrefix: ");

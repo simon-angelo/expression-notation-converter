@@ -88,15 +88,15 @@ int main(int argc, char *argv[]) {
     printf("\n [ ORIGINAL EXPRESSION ]");
     switch (originalNotation) {
         case INFIX:
-            printf("\n\tInfix: ");
+            printf("\n\t%-7s : ", "Infix");
             printf("%s", expression);
             break;
         case PREFIX:
-            printf("\n\tPrefix: ");
+            printf("\n\t%-7s : ", "Prefix");
             printTreePreOrder(root);
             break;
         case POSTFIX:
-            printf("\n\tPostfix: ");
+            printf("\n\t%-7s : ", "Postfix");
             printTreePostOrder(root);
             break;
     }
@@ -104,21 +104,21 @@ int main(int argc, char *argv[]) {
     printf("\n\n [ CONVERTED EXPRESSIONS ]");
     switch (originalNotation) {
         case INFIX:
-            printf("\n\tPrefix: ");
+            printf("\n\t%-7s : ", "Prefix");
             printTreePreOrder(root);
-            printf("\n\tPostfix: ");
+            printf("\n\t%-7s : ", "Postfix");
             printTreePostOrder(root);
             break;
         case PREFIX:
-            printf("\n\tInfix: ");
+            printf("\n\t%-7s : ", "Infix");
             printTreeInOrder(root);
-            printf("\n\tPostfix: ");
+            printf("\n\t%-7s : ", "Postfix");
             printTreePostOrder(root);
             break;
         case POSTFIX:
-            printf("\n\tPrefix: ");
+            printf("\n\t%-7s : ", "Prefix");
             printTreePreOrder(root);
-            printf("\n\tInfix: ");
+            printf("\n\t%-7s : ", "Infix");
             printTreeInOrder(root);
             break;
     }

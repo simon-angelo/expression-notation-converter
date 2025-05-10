@@ -33,10 +33,35 @@ TreeNode* buildPrefixHelper(char **tokens, int *index, int tokenCount);
 TreeNode* buildTreeFromPrefix(char *expr);
 TreeNode* buildTreeFromPostfix(char *expr);
 
-int main(int argc, char *argv[]) { 
+int main(int argc, char *argv[]) {
+    if (strcmp(argv[1],"--help") == 0 && argc == 2) {
+        printf("Expression Notation Guidelines\n\n");
+
+        printf("%9s./main \"<expression>\" --<notation>\n", "Usage: ");
+        printf("%9s./main \"1 + 2 ^ (3 * 4) / 5\" --infix\n\n", "E.g: ");
+
+        printf("Valid operations: + | - | * | / | ^\n\n");
+        printf("Expression rules:\n");
+        printf("\t- Must be enclosed in \"\"\n");
+        printf("\t- Supports variables (A,B,C,x,y,z) and positive integers\n");
+        printf("\t\t- A + B + C\n");
+        printf("\t\t- 1 + 2 + 3\n");
+        printf("\t\t- A + 1 + B\n");
+        printf("\t- Integers may be multiple characters\n");
+        printf("\t\t- A + BC + DEF\n");
+        printf("\t\t- 1 + 23 + 456\n");
+        printf("\t- Operands and operators must be separated by spaces\n");
+        printf("\t\t- 1+2+3 (wrong)\n");
+        printf("\t\t- 1 + 2 + 3 (correct)\n");
+        printf("\t- Precedence is specified with '()'\n");
+        printf("\t\t- (1 + 2) + 3 ^ (4 + 5)\n");
+        return 0;
+    } 
+
+
     if (argc < 3) {
         printf("Error: Missing arguments.\n");
-        printf("Usage: ./main <expression> --<notation>\n");
+        printf("Usage: ./main \"<expression>\" --<notation>\n");
         printf("Type \"./main --help\" for the guidelines\n");
         return 1;
     }

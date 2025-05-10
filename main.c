@@ -34,8 +34,10 @@ TreeNode* buildTreeFromPrefix(char *expr);
 TreeNode* buildTreeFromPostfix(char *expr);
 
 int main(int argc, char *argv[]) { 
-    if (argc == 1) {
-        printf("No arguements passed!\n");
+    if (argc < 3) {
+        printf("Error: Missing arguments.\n");
+        printf("Usage: ./main <expression> --<notation>\n");
+        printf("Type \"./main --help\" for the guidelines\n");
         return 0;
     }
     

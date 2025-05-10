@@ -38,7 +38,7 @@ int main(int argc, char *argv[]) {
         printf("Error: Missing arguments.\n");
         printf("Usage: ./main <expression> --<notation>\n");
         printf("Type \"./main --help\" for the guidelines\n");
-        return 0;
+        return 1;
     }
     
     char *expression = argv[1];
@@ -59,11 +59,9 @@ int main(int argc, char *argv[]) {
     } else if (strcmp(notationFlag, "--postfix") == 0) {
         originalNotation = POSTFIX;
     } else {
-        printf("\nPlease choose from:");
-        printf("\n   --infix");
-        printf("\n   --prefix");
-        printf("\n   --postfix");
-        printf("\n\n");
+        printf("Error: Invalid notation!\n");
+        printf("Valid notations are: --infix, --prefix, --postfix.\n");
+        return 1;
     }   
     
     TreeNode *root = NULL;

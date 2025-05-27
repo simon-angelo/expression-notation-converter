@@ -138,13 +138,12 @@ int main(int argc, char *argv[]) {
     printf("\n===================================================================\n");
 
     printf("\n EXPRESSION NOTATION CONVERTER");
-    printf("\n Discrete Structures 2");
+    printf("\n CS110 Discrete Structures 2");
     printf("\n BSCS 2A");
 
     printf("\n\n [ TEAM MEMBERS ]");
     printf("\n\tMichael Xavier E. Canonizado");
     printf("\n\tSimon Narvaez");
-    printf("\n\tBryan Surname");
 
     printf("\n\n===================================================================\n");
 

@@ -58,11 +58,44 @@ int main(int argc, char *argv[]) {
         return 0;
     } 
 
+    if (strcmp(argv[1],"--guide") == 0 && argc == 2) {
+        printf("Expression Notation Guide\n\n");
 
-    if (argc < 3) {
+        printf("Infix Notation (Standard)\n");
+        printf("   - Format: operand operator operand\n");
+        printf("   - Example: (3 + 4) * 5\n");
+        printf("   - Requires parentheses for clarity.\n\n");
+
+        printf("Prefix Notation (Polish Notation)\n");
+        printf("   - Format: operator operand operand\n");
+        printf("   - Example: * + 3 4 5\n");
+        printf("   - No parentheses needed. Good for compilers.\n\n");
+
+        printf("Postfix Notation (Reverse Polish Notation)\n");
+        printf("   - Format: operand operand operator\n");
+        printf("   - Example: 3 4 + 5 *\n");
+        printf("   - No parentheses needed. Stack-friendly.\n\n");
+
+        printf("Summary:\n");
+        printf("   Infix  = Human-readable\n");
+        printf("   Prefix = Operator comes first\n");
+        printf("   Postfix = Operator comes last\n\n");
+
+        printf("This program converts expressions between these notations.\n");
+        printf("   Example usage:\n");
+        printf("   ./main infix \"(3 + 4) * 5\"\n");
+        printf("   ./main prefix \"+ 3 4\"\n");
+        printf("   ./main postfix \"3 4 +\"\n\n");
+
+        return 0;
+    }
+
+
+    if (argc < 3 && !(strcmp(argv[1],"--guide") == 0) || strcmp(argv[1],"--help") == 0) {
         printf("Error: Missing arguments.\n");
         printf("Usage: ./main \"<expression>\" --<notation>\n");
-        printf("Type \"./main --help\" for the guidelines\n");
+        printf("Type \"./main --help\" for help\n");
+        printf("Type \"./main --guide\" for guidelines\n");
         return 1;
     }
     
@@ -105,13 +138,12 @@ int main(int argc, char *argv[]) {
     printf("\n===================================================================\n");
 
     printf("\n EXPRESSION NOTATION CONVERTER");
-    printf("\n Discrete Structures 2");
+    printf("\n CS110 Discrete Structures 2");
     printf("\n BSCS 2A");
 
     printf("\n\n [ TEAM MEMBERS ]");
     printf("\n\tMichael Xavier E. Canonizado");
     printf("\n\tSimon Narvaez");
-    printf("\n\tBryan Surname");
 
     printf("\n\n===================================================================\n");
 

@@ -1,7 +1,7 @@
 
 # Expression Notation Converter
 
-A command-line C program that builds and traverses expression trees based on user-specified notations: infix, prefix, or postfix. It converts the input expression to the other two notations using tree traversal techniques.
+This is a CS110(Discrete Structures 2) Project. A command-line C program that builds and traverses expression trees based on user-specified notations: infix, prefix, or postfix. It converts the input expression to the other two notations using tree traversal techniques.
 
 ## 🧠 Features
 
